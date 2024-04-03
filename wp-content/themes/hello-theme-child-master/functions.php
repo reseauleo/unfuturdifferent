@@ -21,8 +21,24 @@ add_filter( 'site_transient_update_plugins', 'filter_plugin_updates' );
 
 // == ADMIN == //
 
+if(!function_exists('dashboard_redirect')) {
+	function dashboard_redirect($url) {
+		global $current_user;
+		// is there a user ?
+		if(is_array($current_user->roles)) {
+			// check, whether user has the author role:
+			if(in_array('author', $current_user->roles)) {
+				 $url = admin_url('edit.php?post_type=page');
+			}
+			return $url;
+		}
+	}
+}
+//add_filter('login_redirect', 'dashboard_redirect');   
+
 add_action( 'admin_init', function () {
     //printr( $GLOBALS[ 'menu' ]);
+	remove_admin_page( "menu-dashboard");
 	remove_admin_page( 'toplevel_page_hostinger');
 	remove_admin_page( "toplevel_page_menu-image-options");
 	remove_admin_page( "toplevel_page_loco");

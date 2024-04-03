@@ -1,4 +1,7 @@
 <?php
+header('Location: https://unfuturdifferent.com/wp-admin/edit.php?post_type=page');
+exit;
+
 /**
  * Dashboard Administration Screen
  *
